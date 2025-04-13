@@ -93,24 +93,26 @@ export default function PostCard({ post, currentUser }) {
                     )}
                 </div>
             </div>
-            <div className="flex justify-around mt-5 text-gray-600">
+            {/* <div className="flex justify-around mt-5 text-gray-600"> */}
+            <div className="flex flex-wrap gap-2 justify-around md:justify-between mt-5 text-gray-600">
+
                 <button
-                    className={`flex items-center gap-2 ${liked ? 'text-red-500' : ''} hover:text-red-500 transition cursor-pointer`}
+                    className={`flex items-center gap-1 md:gap-2 ${liked ? 'text-red-500' : ''} hover:text-red-500 transition cursor-pointer`}
                     onClick={handleLikeClick}
                 >
                     <Heart className="w-5 h-5" fill={liked ? 'red' : 'none'} />
                     <span>{likesCount} {likesCount > 1 ? "Likes" : "Like"}</span>
                 </button>
-                <button className="flex items-center gap-2 hover:text-blue-500 transition cursor-pointer">
+                <button className="flex items-center gap-1 md:gap-2 hover:text-blue-500 transition cursor-pointer">
                     <MessageCircle className="w-5 h-5" />
                     <span>Comment</span>
                 </button>
-                <button className="flex items-center gap-2 hover:text-green-500 transition cursor-pointer">
+                <button className="flex items-center gap-1 md:gap-2 hover:text-green-500 transition cursor-pointer">
                     <Share2 className="w-5 h-5" />
                     <span>Share</span>
                 </button>
                 <button
-                    className={`flex items-center gap-2 ${saved ? 'text-blue-600' : ''} hover:text-blue-500 transition cursor-pointer`}
+                    className={`flex items-center gap-1 md:gap-2 ${saved ? 'text-blue-600' : ''} hover:text-blue-500 transition cursor-pointer`}
                     onClick={handleSave}
                 >
                     <Bookmark className="w-5 h-5" fill={saved ? 'currentColor' : 'none'} />
