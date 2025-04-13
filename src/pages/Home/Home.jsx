@@ -29,18 +29,12 @@ export default function Home() {
         </div>
 
         {/* Tabbed Section */}
-        <div className="bg-white rounded-lg shadow-md p-4">
-          <div className="flex space-x-6 border-b border-gray-400 justify-around">
-            <button className="pb-2 font-semibold border-b-2 border-indigo-600 text-indigo-600">Latest</button>
-            <button className="pb-2 text-gray-500 hover:text-black">Top</button>
-            <button className="pb-2 text-gray-500 hover:text-black">Following</button>
+        {/* <div className="bg-white rounded-lg shadow-md p-4"> */}
+        <div className="mt-4 space-y-4">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+            <Posts />
           </div>
-
-          <div className="mt-4 space-y-4">
-            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <Posts />
-            </div>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>
