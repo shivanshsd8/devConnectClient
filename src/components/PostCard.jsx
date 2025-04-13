@@ -123,7 +123,6 @@
 //     );
 // }
 
-
 import { Heart, MessageCircle, Share2, Bookmark } from 'lucide-react';
 import { useContext, useEffect, useState } from 'react';
 import { DevconnectContext } from '../context/DevconnectContext';
@@ -134,28 +133,28 @@ export default function PostCard({ post, currentUser }) {
     const [saved, setSaved] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
         if (post?.likes && currentUser) {
-            const isLiked = post.likes.some(like => 
-                (like._id || '').toString() === currentUser.id.toString()
+            const isLiked = post.likes.some(
+                like => (like._id || '').toString() === currentUser.id.toString()
             );
             setLiked(isLiked);
             setLikesCount(post.likes.length);
         }
-        
+
         if (savedPosts) {
             const isSaved = savedPosts.some(p => p._id === post._id);
             setSaved(isSaved);
         }
-        
+
         setLoading(false);
-    }, [post, post.likes, currentUser, savedPosts]); // Watch the entire post object for changes
+    }, [post, currentUser, savedPosts]);
 
     if (!currentUser || loading) return null;
-    
+
     const profileImage = post.author?.profileImage || currentUser.profileImage;
-    
+
     const handleLikeClick = async () => {
         const updatedLiked = await likePostHandler(post._id, setLiked);
         if (updatedLiked !== null) {
@@ -163,7 +162,7 @@ export default function PostCard({ post, currentUser }) {
             setLikesCount(prev => updatedLiked ? prev + 1 : prev - 1);
         }
     };
-    
+
     const handleSave = async () => {
         const updated = await savePostHandler(post._id);
         if (updated === true) {
@@ -176,7 +175,7 @@ export default function PostCard({ post, currentUser }) {
             alert("Failed To Toggle Post Save/Unsave");
         }
     };
-    
+
     function calcTimeDiff(time) {
         if (!time) return 'some time';
         const createdDate = new Date(time);
@@ -186,67 +185,57 @@ export default function PostCard({ post, currentUser }) {
         if (diffInMinutes < 60) return `${diffInMinutes} minutes`;
         return `${Math.floor(diffInMinutes / 60)} hours`;
     }
-    
-    return (
-        <div className="bg-white rounded-2xl shadow-sm p-5 transition hover:shadow-lg">
-            <div className="relative">
-                {/* Image as full width */}
-                {post.imageUrl && (
-                    <img
-                        src={post.imageUrl}
-                        alt="Post"
-                        className="rounded-xl object-cover w-full h-[300px] sm:h-[400px] md:h-[500px] transition duration-300 hover:opacity-90"
-                    />
-                )}
 
-                {/* Text content on top of the image */}
-                <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black to-transparent text-white p-4 flex flex-col justify-end">
-                    <div className="flex items-center gap-3">
-                        <img
-                            src={profileImage}
-                            alt="Profile"
-                            className="w-12 h-12 rounded-full object-cover"
-                        />
-                        <div className="flex-1">
-                            <div className="flex flex-col">
-                                <div className="flex flex-wrap items-center gap-2 ">
-                                    <p className="font-semibold text-xl">{post.author?.name}</p>
-                                    <p className="text-sm text-gray-300">@{post.author?.username}</p>
-                                </div>
-                                <div>
-                                    <span className="text-xs text-gray-400 ml-auto">
-                                        .{calcTimeDiff(post.createdAt)} ago
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+    return (
+        <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 transition hover:shadow-md space-y-3">
+            {/* Top user info */}
+            <div className="flex items-start gap-3">
+                <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                        <p className="font-semibold text-sm sm:text-base">{post.author?.name}</p>
+                        <p className="text-gray-500 text-sm">@{post.author?.username}</p>
+                        <span className="text-gray-400 text-xs">• {calcTimeDiff(post.createdAt)} ago</span>
                     </div>
-                    <p className="text-sm mt-2 mb-3">{post.content}</p>
+                    <p className="mt-1 text-sm sm:text-base">{post.content}</p>
                 </div>
             </div>
-            
-            {/* Interactions */}
-            <div className="flex justify-around mt-5 text-gray-600">
+
+            {/* Image */}
+            {post.imageUrl && (
+                <img
+                    src={post.imageUrl}
+                    alt="Post"
+                    className="rounded-xl w-full object-cover max-h-[500px]"
+                />
+            )}
+
+            {/* Buttons */}
+            <div className="flex justify-around text-gray-600 text-sm pt-2 border-t border-gray-200">
                 <button
-                    className={`flex items-center gap-2 ${liked ? 'text-red-500' : ''} hover:text-red-500 transition cursor-pointer`}
+                    className={`flex items-center gap-1 ${liked ? 'text-red-500' : ''}`}
                     onClick={handleLikeClick}
                 >
-                    <Heart className="w-5 h-5" fill={liked ? 'red' : 'none'} />
-                    <span>{likesCount} {likesCount > 1 ? "Likes" : "Like"}</span>
+                    <Heart className="w-4 h-4" fill={liked ? 'red' : 'none'} />
+                    <span>{likesCount}</span>
                 </button>
-                <button className="flex items-center gap-2 hover:text-blue-500 transition cursor-pointer">
-                    <MessageCircle className="w-5 h-5" />
+                <button className="flex items-center gap-1 hover:text-blue-500">
+                    <MessageCircle className="w-4 h-4" />
                     <span>Comment</span>
                 </button>
-                <button className="flex items-center gap-2 hover:text-green-500 transition cursor-pointer">
-                    <Share2 className="w-5 h-5" />
+                <button className="flex items-center gap-1 hover:text-green-500">
+                    <Share2 className="w-4 h-4" />
                     <span>Share</span>
                 </button>
                 <button
-                    className={`flex items-center gap-2 ${saved ? 'text-blue-600' : ''} hover:text-blue-500 transition cursor-pointer`}
+                    className={`flex items-center gap-1 ${saved ? 'text-blue-600' : ''}`}
                     onClick={handleSave}
                 >
-                    <Bookmark className="w-5 h-5" fill={saved ? 'currentColor' : 'none'} />
+                    <Bookmark className="w-4 h-4" fill={saved ? 'currentColor' : 'none'} />
                     <span>{saved ? 'Saved' : 'Save'}</span>
                 </button>
             </div>
