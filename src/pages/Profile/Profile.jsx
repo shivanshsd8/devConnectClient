@@ -23,7 +23,6 @@ export default function Profile() {
                 const data = await res.json();
                 setUser(data);
             } catch (err) {
-                console.log('Error Fetching User!');
                 setUser(undefined);
             }
         }

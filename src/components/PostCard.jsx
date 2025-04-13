@@ -30,7 +30,6 @@ export default function PostCard({ post, currentUser }) {
     if (!currentUser || loading) return null;
     
     const profileImage = post.author?.profileImage || currentUser.profileImage;
-    console.log(post.author);
     
     
     const handleLikeClick = async () => {

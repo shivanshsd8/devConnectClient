@@ -251,7 +251,6 @@ export function DevconnectProvider({ children }) {
                 setOwnPosts(prev => [data.newPost, ...(prev || [])]);
                 setFeed(prev => [data.newPost, ...(prev || [])]);
             } else {
-                console.log(data);
                 alert('❌ Post creation failed!');
             }
         } catch (err) {
