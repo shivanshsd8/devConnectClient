@@ -28,13 +28,10 @@ export default function Home() {
           <CreatePost />
         </div>
 
-        {/* Tabbed Section */}
-        {/* <div className="bg-white rounded-lg shadow-md p-4"> */}
-        <div className="mt-4 space-y-4">
+        <div>
           <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
             <Posts />
           </div>
-          {/* </div> */}
         </div>
       </div>
     </div>
