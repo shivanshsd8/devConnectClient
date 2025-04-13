@@ -5,10 +5,12 @@ import Posts from '../../components/Posts';
 export default function Home() {
   return (
     // <div className="flex flex-col md:flex-row gap-6 px-4 md:px-12 mt-8 h-[calc(100vh-64px)] overflow-hidden">
-    <div className="flex flex-col md:flex-row gap-6 px-4 md:px-12 mt-8 md:h-[calc(100vh-64px)]">
+    // <div className="flex flex-col md:flex-row gap-6 px-4 md:px-12 mt-8 md:h-[calc(100vh-64px)]">
+    <div className="flex flex-col md:flex-row gap-6 px-4 md:px-12 mt-8 md:h-[calc(100vh-64px)] md:overflow-hidden">
 
       {/* Left Sidebar */}
       <div className="md:w-1/3 w-full space-y-6 md:sticky md:top-20 relative">
+
         <ProfileCard />
 
         {/* Top Topics */}
@@ -25,7 +27,9 @@ export default function Home() {
       </div>
 
       {/* Right/Main Content */}
-      <div className="md:w-2/3 w-full flex flex-col gap-6 overflow-y-auto pr-2 h-[calc(100vh-64px)]">
+      {/* <div className="md:w-2/3 w-full flex flex-col gap-6 overflow-y-auto pr-2 h-[calc(100vh-64px)]"> */}
+      <div className="md:w-2/3 w-full flex flex-col gap-6 md:overflow-y-auto pr-2 md:h-[calc(100vh-64px)]">
+
 
         {/* Create Post */}
         <div className="-mx-4 md:mx-0">
